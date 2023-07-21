@@ -1,26 +1,20 @@
 package main
 
-import "github.com/alecthomas/kong"
+import (
+	"github.com/Adaendra/pokemon-cli/pkg/commands/charttype"
+	"github.com/alecthomas/kong"
+)
 
 var CLI struct {
-	Rm struct {
-		Force     bool `help:"Force removal."`
-		Recursive bool `help:"Recursively remove files."`
-
-		Paths []string `arg:"" name:"path" help:"Paths to remove." type:"path"`
-	} `cmd:"" help:"Remove files."`
-
-	Ls struct {
-		Paths []string `arg:"" optional:"" name:"path" help:"Paths to list." type:"path"`
-	} `cmd:"" help:"List paths."`
+	ChartType struct {
+		Types []string `arg:"" name:"types" help:"Types to check" type:"string"`
+	} `cmd:"" help:"Give the chart type values for the type (or double type) given in parameter."`
 }
 
 func main() {
 	ctx := kong.Parse(&CLI)
 	switch ctx.Command() {
-	case "rm <path>":
-	case "ls":
-	default:
-		panic(ctx.Command())
+	case "chart-type <types>":
+		charttype.Run(CLI.ChartType.Types)
 	}
 }
