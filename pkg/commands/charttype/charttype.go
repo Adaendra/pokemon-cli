@@ -8,12 +8,16 @@ import (
 )
 
 func Run(types []string, isAttack bool, isDefense bool) {
+	if !isAttack && !isDefense {
+		isAttack = true
+	}
+
 	if len(types) == 0 {
-		terminal.Println("No types selected")
+		terminal.ErrorPrintln("No types selected")
 		os.Exit(0)
 	}
 	if len(types) > 2 && isDefense || len(types) > 1 && isAttack {
-		terminal.Println("Too much types selected")
+		terminal.ErrorPrintln("Too much types selected")
 		os.Exit(0)
 	}
 
@@ -23,4 +27,13 @@ func Run(types []string, isAttack bool, isDefense bool) {
 		}
 	}
 
+	// Attack
+	if isAttack {
+		terminal.Println("ATTACK")
+	}
+
+	// Defense
+	if isDefense {
+		terminal.Println("DEFENSE")
+	}
 }
