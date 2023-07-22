@@ -26,9 +26,9 @@ const (
 var (
 	TypeList = []string{
 		NormalType,
+		GrassType,
 		FireType,
 		WaterType,
-		GrassType,
 		ElectricType,
 		IceType,
 		FightingType,
@@ -46,15 +46,19 @@ var (
 	}
 )
 
-func CheckType(t string) bool {
-	isCorrect := false
+func IsExistingType(t string) bool {
+	return GetIndex(t) != -1
+}
 
-	for _, tt := range TypeList {
+func GetIndex(t string) int {
+	index := -1
+
+	for i, tt := range TypeList {
 		if strings.ToUpper(tt) == strings.ToUpper(t) {
-			isCorrect = true
+			index = i
 			break
 		}
 	}
 
-	return isCorrect
+	return index
 }
